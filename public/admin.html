@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPX-DEMON — Admin</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="icon" type="image/svg+xml" href="/img/logo.svg">
+<style>
+  .admin-wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+  .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+  .admin-tabs { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .admin-tab { background: none; border: none; color: var(--muted); font-weight: 600; padding: 12px 18px; border-bottom: 2px solid transparent; }
+  .admin-tab.active { color: var(--accent); border-color: var(--accent); }
+  .panel { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+  .panel h3 { margin-bottom: 16px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
+  .badge.pending { background: rgba(255,179,0,0.15); color: var(--accent); }
+  .badge.confirmed { background: rgba(46,204,113,0.15); color: var(--green); }
+  .badge.cancelled { background: rgba(231,76,60,0.15); color: var(--red); }
+  .badge.completed { background: rgba(154,154,154,0.15); color: var(--muted); }
+  .order-row { border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+  .order-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .order-no { font-weight: 800; font-size: 16px; color: var(--accent); }
+  .order-cust { font-size: 13px; color: var(--muted); }
+  .order-items { margin: 12px 0; font-size: 14px; background: var(--bg); border-radius: 10px; padding: 12px; }
+  .order-item { display: flex; justify-content: space-between; }
+  .order-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .btn-sm { padding: 8px 16px; font-size: 13px; border-radius: 8px; }
+  .filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filter-row select { background: var(--bg); border: 1px solid var(--line); color: var(--text); padding: 10px 14px; border-radius: 10px; }
+  .num-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .login-box { max-width: 400px; margin: 80px auto; text-align: center; }
+  .login-box h1 { margin-bottom: 24px; }
+  .save-bar { margin-top: 20px; }
+  .empty { text-align: center; color: var(--muted); padding: 40px; }
+  .admin-toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<div class="admin-wrap" id="loginScreen">
+  <div class="login-box panel">
+    <h1>OPX-DEMON Admin</h1>
+    <div class="form-group"><input type="password" id="loginPass" placeholder="Admin password"></div>
+    <button class="btn btn-block" id="loginBtn">Login</button>
+  </div>
+</div>
+
+<div class="admin-wrap" id="dashScreen" style="display:none">
+  <div class="admin-header">
+    <h1>OPX-DEMON Admin</h1>
+    <button class="btn btn-ghost btn-sm" id="logoutBtn">Logout</button>
+  </div>
+
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-tab="orders">Orders</button>
+    <button class="admin-tab" data-tab="payments">Payments</button>
+    <button class="admin-tab" data-tab="products">Products</button>
+  </div>
+
+  <!-- Orders -->
+  <div id="tab-orders">
+    <div class="admin-toolbar">
+      <select id="orderFilter">
+        <option value="">All statuses</option>
+        <option value="pending">Pending</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="cancelled">Cancelled</option>
+        <option value="completed">Completed</option>
+      </select>
+      <button class="btn btn-ghost btn-sm" id="refreshOrders">Refresh</button>
+    </div>
+    <div id="ordersList"><div class="empty">Loading…</div></div>
+  </div>
+
+  <!-- Payments -->
+  <div id="tab-payments" style="display:none">
+    <div class="panel">
+      <h3>Payment numbers (shown to customers)</h3>
+      <div class="num-grid">
+        <div class="form-group"><label>bKash number</label><input id="setBkash" placeholder="01XXXXXXXXX"></div>
+        <div class="form-group"><label>Nagad number</label><input id="setNagad" placeholder="01XXXXXXXXX"></div>
+      </div>
+      <div class="form-group"><label>Payment instructions</label><textarea id="setInstructions" rows="3"></textarea></div>
+      <button class="btn btn-sm" id="savePayments">Save payment settings</button>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <div id="tab-products" style="display:none">
+    <div class="panel">
+      <h3>Add product</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Name</label><input id="npName"></div>
+        <div class="form-group"><label>Slug</label><input id="npSlug" placeholder="my-product"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Price (cents)</label><input id="npPrice" type="number" placeholder="16900"></div>
+        <div class="form-group"><label>Compare-at price (cents, optional)</label><input id="npCmp" type="number" placeholder="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Image URL</label><input id="npImg" placeholder="/img/product-demon.png"></div>
+        <div class="form-group"><label>Category</label><input id="npCat" placeholder="device"></div>
+      </div>
+      <div class="form-group"><label>Description</label><textarea id="npDesc" rows="2"></textarea></div>
+      <button class="btn btn-sm" id="addProduct">Add product</button>
+    </div>
+    <div id="productsList"><div class="empty">Loading…</div></div>
+  </div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

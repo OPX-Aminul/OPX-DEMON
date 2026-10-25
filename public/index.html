@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPX-DEMON — Portable Multi-tool Device</title>
+<meta name="description" content="OPX-DEMON is a versatile multi-tool device for daily exploring of access control systems and radio protocols. Fully open source and customisable.">
+<link rel="preload" href="/fonts/inter-n4.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/inter-n7.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="icon" type="image/png" href="/img/logo.svg">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <img class="logo-img" src="/img/logo.svg" alt="OPX-DEMON">
+      <span class="logo-name">OPX<span>-DEMON</span></span>
+    </a>
+    <nav class="nav">
+      <a href="#products">Products</a>
+      <a href="#features">Features</a>
+      <a href="#specs">Specs</a>
+      <a href="#support">Support</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-btn" id="cartBtn">
+        Cart
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-badge">OPX-DEMON — Open source multi-tool</span>
+      <h1>Your <span>cyber buddy</span> for hardware exploration</h1>
+      <p class="hero-sub">A pocket-sized multi-tool for exploring access control systems, radio protocols, and more. Fully open source and customisable.</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn">Buy now</a>
+        <a href="#features" class="btn btn-ghost">Explore features</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="products">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Products</div>
+      <h2 class="sec-title">Choose your gear</h2>
+      <p class="sec-sub">Everything you need to start exploring.</p>
+    </div>
+    <div class="products-grid" id="productsGrid">
+      <div class="product-card"><div class="product-body" style="text-align:center;color:var(--muted)">Loading products…</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-plus" id="features">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Features</div>
+      <h2 class="sec-title">Built to explore</h2>
+      <p class="sec-sub">A multi-function tool for geeks and security researchers.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature"><div class="feature-icon">📡</div><h3>Sub-1 GHz Transceiver</h3><p>Customizable radio platform for exploring low-frequency signals.</p></div>
+      <div class="feature"><div class="feature-icon">🔖</div><h3>125 kHz RFID</h3><p>Read, clone, and emulate low-frequency proximity cards.</p></div>
+      <div class="feature"><div class="feature-icon">📱</div><h3>NFC</h3><p>High-frequency card reading and emulation.</p></div>
+      <div class="feature"><div class="feature-icon">🔗</div><h3>Bluetooth</h3><p>Connect to mobile apps for extended workflows.</p></div>
+      <div class="feature"><div class="feature-icon">🌡</div><h3>Infrared</h3><p>Learn and transmit IR signals.</p></div>
+      <div class="feature"><div class="feature-icon">💾</div><h3>microSD</h3><p>External storage for apps and data.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img class="logo-img" src="/img/logo.svg" alt="OPX-DEMON"><span class="logo-name">OPX<span>-DEMON</span></span></a>
+        <p>A multi-tool device for daily exploring of access control systems and radio protocols.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#products">Products</a>
+        <a href="#">Accessories</a>
+        <a href="#">Modules</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#features">Features</a>
+        <a href="#">Docs</a>
+        <a href="#">Community</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Contact</a>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> OPX-DEMON. All rights reserved.</span>
+      <span>OPX-DEMON</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="drawer-header">
+    <h3>Your cart</h3>
+    <button class="close-btn" id="closeCart">&times;</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-footer">
+    <div class="drawer-total"><span>Total</span><span id="drawerTotal">0</span></div>
+    <button class="btn btn-block" id="checkoutBtn">Checkout</button>
+  </div>
+</aside>
+
+<!-- Checkout modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
